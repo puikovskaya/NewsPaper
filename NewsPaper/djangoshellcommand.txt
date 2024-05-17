@@ -1,0 +1,95 @@
+from news.models import * 
+
+1. 
+user1 = User.objects.create_user('user1', 'password1')
+user2 = User.objects.create_user('user2', 'password2') 
+
+2.
+author1 = Author.objects.create(user=user1)
+author2 = Author.objects.create(user=user2)
+
+3.
+category1 = Category.objects.create(name='Спорт')
+category2 = Category.objects.create(name='Политика')
+category3 = Category.objects.create(name='Образование')
+category4 = Category.objects.create(name='Наука')
+
+4.
+post1 = Post.objects.create(
+    author=author1,
+    post_type='article',
+    title='Заголовок статьи 1',
+    text='Текст статьи 1',
+)
+post2 = Post.objects.create(
+    author=author2,
+    post_type='article',
+    title='Заголовок статьи 2',
+    text='Текст статьи 2',
+)
+news = Post.objects.create(
+    author=author1,
+    post_type='news',
+    title='Заголовок новости',
+    text='Текст новости',
+)
+
+5.
+post1.categories.add(category1, category2)
+post2.categories.add(category3)
+news.categories.add(category4)
+
+6.
+comment1 = Comment.objects.create(
+    post=post1,
+    user=user1,
+    text='Комментарий 1 к статье 1',
+)
+comment2 = Comment.objects.create(
+    post=post1,
+    user=user2,
+    text='Комментарий 2 к статье 1',
+)
+comment3 = Comment.objects.create(
+    post=post2,
+    user=user1,
+    text='Комментарий 1 к статье 2',
+)
+comment4 = Comment.objects.create(
+    post=news,
+    user=user2,
+    text='Комментарий к новости',
+)
+
+7.
+post1.like()
+post2.dislike() 
+news.like()
+comment1.like()
+comment2.dislike()
+comment3.like()
+comment4.like()
+
+8.
+author1.update_rating()
+author2.update_rating()
+
+9.
+best_user = User.objects.order_by('-rating').first()
+print(f'Лучший пользователь: {best_user.username}, рейтинг: {best_user.author.rating}')
+
+10.
+best_post = Post.objects.order_by('-rating').first()
+print(f'Дата создания: {best_post.created_at}')
+print(f'Автор: {best_post.author.user.username}')
+print(f'Рейтинг: {best_post.rating}')
+print(f'Заголовок: {best_post.title}')
+print(f'Превью: {best_post.preview()}')
+
+11.
+best_post_comments = best_post.comment_set.all()
+for comment in best_post_comments:
+    print(f'Дата: {comment.created_at}')
+    print(f'Автор: {comment.user.username}')
+    print(f'Рейтинг: {comment.rating}')
+    print(f'Текст: {comment.text}')
