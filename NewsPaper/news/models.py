@@ -10,7 +10,7 @@ class Author(models.Model):
         post_ratings = sum([post.rating * 3 for post in self.post_set.all()])
 
         # Суммарный рейтинг комментариев автора
-        author_comment_ratings = sum([comment.rating for comment in self.comment_set.all()])
+        author_comment_ratings = sum([comment.rating for comment in self.user.comment_set.all()])
 
         # Суммарный рейтинг комментариев к статьям автора
         post_comment_ratings = sum([comment.rating for comment in Comment.objects.filter(post__author=self)])

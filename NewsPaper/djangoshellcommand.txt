@@ -75,8 +75,8 @@ author1.update_rating()
 author2.update_rating()
 
 9.
-best_user = User.objects.order_by('-rating').first()
-print(f'Лучший пользователь: {best_user.username}, рейтинг: {best_user.author.rating}')
+best_user = Author.objects.order_by('-rating').first()
+print(f'Лучший пользователь: {best_user.user.username}, рейтинг: {best_user.rating}')
 
 10.
 best_post = Post.objects.order_by('-rating').first()
