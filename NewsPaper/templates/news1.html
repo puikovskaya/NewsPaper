@@ -12,7 +12,7 @@ News
 <hr>
        <table>
            <tr>
-               <td>{{ news1.title }}</td>
+               <td>{{ news1.title|censor }}</td>
            </tr>
            <tr>
                <td>Дата создания: {{news1.created_at| date:'M d Y'}}</td>
@@ -21,7 +21,7 @@ News
                <td>{{ news1.post_type }}</td>
            </tr>
            <tr>
-               <td>{{ news1.text }}</td>
+               <td>{{ news1.text|censor }}</td>
            </tr>
            <tr>
                <td>Рейтинг: {{news1.rating}}</td>
