@@ -1,14 +1,13 @@
 from django.urls import path
 # Импортируем созданное нами представление
-from .views import PostsList, PostsDetail
+from .views import PostsList, PostsDetail, NewsFilter, NewsCreate, NewsUpdate, NewsDelete
 
 
 urlpatterns = [
-   # В данном случае путь ко всем товарам у нас останется пустым,
-   # чуть позже станет ясно почему.
-   # Т.к. наше объявленное представление является классом,
-   # а Django ожидает функцию, нам надо представить этот класс в виде view.
-   # Для этого вызываем метод as_view.
    path('', PostsList.as_view()),
    path('<int:pk>', PostsDetail.as_view()),
+   path('search', NewsFilter.as_view()),
+   path('create', NewsCreate.as_view()),
+   path('<int:pk>/edit/', NewsUpdate.as_view()),
+   path('<int:pk>/delete/', NewsDelete.as_view()),
 ]
